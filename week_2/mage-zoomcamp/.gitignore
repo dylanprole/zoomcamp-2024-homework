@@ -175,3 +175,5 @@ magic-zoomcamp
 *.json
 
 *.csv
+
+.keys
