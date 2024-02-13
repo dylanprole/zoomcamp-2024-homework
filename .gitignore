@@ -211,4 +211,4 @@ magic-zoomcamp
 *.json
 
 .keys
-
+.secrets
