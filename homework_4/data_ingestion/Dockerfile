@@ -11,6 +11,6 @@ RUN apt-get install wget
 RUN pip install requests pandas pyarrow google-cloud-storage
 
 WORKDIR /app
-COPY ingest_ny_taxi_parquet.py ingest_ny_taxi_parquet.py
+COPY ingest_ny_taxi_data.py ingest_ny_taxi_data.py
 
-ENTRYPOINT [ "python", "ingest_ny_taxi_parquet.py" ]
+ENTRYPOINT [ "python", "ingest_ny_taxi_data.py" ]

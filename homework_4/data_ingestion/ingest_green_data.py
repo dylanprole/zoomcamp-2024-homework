@@ -33,7 +33,7 @@ def upload_to_gcs(bucket, object_name, local_file):
     blob.upload_from_filename(local_file)
 
 
-def web_to_gcs(year, service, taxi_dtypes, parse_dates):
+def web_to_gcs(year, service):
     for i in range(12):
         
         # sets the month part of the file_name string
@@ -47,58 +47,50 @@ def web_to_gcs(year, service, taxi_dtypes, parse_dates):
         request_url = f"{init_url}{service}/{file_name}"
         r = requests.get(request_url)
         open(file_name, 'wb').write(r.content)
-        print('Downloading files...')
-        print(f"\tLocal: {file_name}")
+        print(f"Local: {file_name}")
+
+        taxi_dtypes = {
+            'VendorID': pd.Int64Dtype(),
+            'passenger_count': pd.Int64Dtype(),
+            'trip_distance': float,
+            'RatecodeID': pd.Int64Dtype(),
+            'store_and_fwd_flag': str,
+            'PULocationID': pd.Int64Dtype(),
+            'DOLocationID': pd.Int64Dtype(),
+            'payment_type': pd.Int64Dtype(),
+            'fare_amount': float,
+            'extra': float,
+            'mta_tax': float,
+            'tip_amount': float,
+            'tolls_amount': float,
+            'improvement_surcharge': float,
+            'total_amount': float,
+            'congestion_surcharge': float 
+        }
+
+        parse_dates = ['lpep_pickup_datetime', 'lpep_dropoff_datetime']
 
         # read it back into a csv file
         df = pd.read_csv(file_name, sep=",", compression="gzip", dtype=taxi_dtypes, parse_dates=parse_dates)
         csv_gz_name=file_name
         file_name = file_name.replace('.csv.gz', '.csv')
         df.to_csv(file_name, index=False)
-        print(f"\tCSV: {file_name}")
+        print(f"CSV: {file_name}")
 
         # upload it to gcs 
-        print('Uploading to Google Storage...')
-        print(f"\tGCS: {service}/{file_name}")
         upload_to_gcs(BUCKET, f"{service}/{file_name}", file_name)
+        print(f"GCS: {service}/{file_name}")
 
         # clean up files
-        print('Cleaning up local files...')
+        print('Cleaning up...')
 
-        print(f'\tRemoving {csv_gz_name}')
+        print(f'\tRemoving {csv_gz_name} locally')
         os.remove(csv_gz_name)
 
-        print(f'\tRemoving {file_name}')
+        print(f'\tRemoving {file_name} locally')
         os.remove(file_name)
         print()
 
-# Data types
-green_yellow_dtypes = {
-    'VendorID': pd.Int64Dtype(), 'passenger_count': pd.Int64Dtype(), 'trip_distance': float,
-    'RatecodeID': pd.Int64Dtype(), 'store_and_fwd_flag': str, 'PULocationID': pd.Int64Dtype(),
-    'DOLocationID': pd.Int64Dtype(), 'payment_type': pd.Int64Dtype(), 'fare_amount': float,
-    'extra': float, 'mta_tax': float, 'tip_amount': float, 'tolls_amount': float,
-    'improvement_surcharge': float, 'total_amount': float, 'congestion_surcharge': float 
-}
-
-fhv_dtypes = {
-    'dispatching_base_num': str, 'PULocationID': pd.Int64Dtype(),
-    'DOLocationID': pd.Int64Dtype(), 'SR_Flag': pd.Int64Dtype(),
-    'Affiliated_base_number': str
-}
-
-# Parse dates
-green_dates = ['lpep_pickup_datetime', 'lpep_dropoff_datetime']
-yellow_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']
-fhv_dates = ['pickup_datetime', 'dropOff_datetime']
-
 # Green
-web_to_gcs('2019', 'green', green_yellow_dtypes, green_dates)
-web_to_gcs('2020', 'green', green_yellow_dtypes, green_dates)
-
-# Yellow
-web_to_gcs('2019', 'yellow', green_yellow_dtypes, yellow_dates)
-web_to_gcs('2020', 'yellow', green_yellow_dtypes, yellow_dates)
-
-# Fhv
-web_to_gcs('2019', 'fhv', fhv_dtypes, fhv_dates)
+web_to_gcs('2019', 'green')
+web_to_gcs('2020', 'green')
