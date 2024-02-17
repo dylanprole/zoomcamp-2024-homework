@@ -50,14 +50,14 @@ def web_to_gcs(year, service):
         print(f"Local: {file_name}")
 
         taxi_dtypes = {
-            'VendorID': pd.Int64Dtype(),
-            'passenger_count': pd.Int64Dtype(),
+            'VendorID': pd.Int8Dtype(),
+            'passenger_count': pd.Int8Dtype(),
             'trip_distance': float,
-            'RatecodeID': pd.Int64Dtype(),
+            'RatecodeID': pd.Int8Dtype(),
             'store_and_fwd_flag': str,
-            'PULocationID': pd.Int64Dtype(),
-            'DOLocationID': pd.Int64Dtype(),
-            'payment_type': pd.Int64Dtype(),
+            'PULocationID': pd.Int8Dtype(),
+            'DOLocationID': pd.Int8Dtype(),
+            'payment_type': pd.Int8Dtype(),
             'fare_amount': float,
             'extra': float,
             'mta_tax': float,
@@ -78,7 +78,7 @@ def web_to_gcs(year, service):
         print(f"CSV: {file_name}")
 
         # upload it to gcs 
-        upload_to_gcs(BUCKET, f"{service}/{file_name}", file_name)
+        upload_to_gcs(BUCKET, f"{service}_2/{file_name}", file_name)
         print(f"GCS: {service}/{file_name}")
 
         # clean up files

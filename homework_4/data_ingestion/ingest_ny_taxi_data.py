@@ -93,12 +93,12 @@ yellow_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']
 fhv_dates = ['pickup_datetime', 'dropOff_datetime']
 
 # Green
-web_to_gcs('2019', 'green', green_yellow_dtypes, green_dates)
-web_to_gcs('2020', 'green', green_yellow_dtypes, green_dates)
+# web_to_gcs('2019', 'green', green_yellow_dtypes, green_dates)
+# web_to_gcs('2020', 'green', green_yellow_dtypes, green_dates)
 
 # Yellow
 web_to_gcs('2019', 'yellow', green_yellow_dtypes, yellow_dates)
 web_to_gcs('2020', 'yellow', green_yellow_dtypes, yellow_dates)
 
 # Fhv
-web_to_gcs('2019', 'fhv', fhv_dtypes, fhv_dates)
+# web_to_gcs('2019', 'fhv', fhv_dtypes, fhv_dates)
