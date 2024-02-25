@@ -211,3 +211,6 @@ magic-zoomcamp
 *.json
 
 .keys
+/homework_5/data
+/homework_5/spark/zones
+/homework_5/spark/fhvhv
