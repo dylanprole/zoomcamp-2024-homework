@@ -1,0 +1,48 @@
+{
+  "reference": {
+    "jobId": "job-4ef54578",
+    "projectId": "taxi-rides-ny-412407"
+  },
+  "placement": {
+    "clusterName": "de-zoomcamp-cluster"
+  },
+  "status": {
+    "state": "DONE",
+    "stateStartTime": "2024-03-02T02:49:47.836966Z"
+  },
+  "yarnApplications": [
+    {
+      "name": "test",
+      "state": "FINISHED",
+      "progress": 1,
+      "trackingUrl": "http://de-zoomcamp-cluster-m.australia-southeast1-a.c.taxi-rides-ny-412407.internal.:8088/proxy/application_1709346818431_0003/"
+    }
+  ],
+  "statusHistory": [
+    {
+      "state": "PENDING",
+      "stateStartTime": "2024-03-02T02:48:50.054267Z"
+    },
+    {
+      "state": "SETUP_DONE",
+      "stateStartTime": "2024-03-02T02:48:50.084840Z"
+    },
+    {
+      "state": "RUNNING",
+      "details": "Agent reported job success",
+      "stateStartTime": "2024-03-02T02:48:50.601023Z"
+    }
+  ],
+  "driverControlFilesUri": "gs://dataproc-staging-au-southeast1-275129653963-swijy9ys/google-cloud-dataproc-metainfo/ae38d39e-2f0c-4c06-a555-eff0bcf35fac/jobs/job-4ef54578/",
+  "driverOutputResourceUri": "gs://dataproc-staging-au-southeast1-275129653963-swijy9ys/google-cloud-dataproc-metainfo/ae38d39e-2f0c-4c06-a555-eff0bcf35fac/jobs/job-4ef54578/driveroutput",
+  "jobUuid": "1c99e224-8ce7-4826-873d-48bd36d90137",
+  "done": true,
+  "pysparkJob": {
+    "mainPythonFileUri": "gs://taxi-rides-ny-412407-bigquery/python_files/spark_submit_local.py",
+    "args": [
+      "--input_green=gs://taxi-rides-ny-412407-bigquery/pq/green/2021/*/",
+      "--output=gs://taxi-rides-ny-412407-bigquery/report_2021/",
+      "--input_yellow=gs://taxi-rides-ny-412407-bigquery/pq/yellow/2021/*/"
+    ]
+  }
+}
