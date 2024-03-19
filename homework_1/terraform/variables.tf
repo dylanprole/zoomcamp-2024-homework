@@ -25,7 +25,7 @@ variable "location" {
 variable "bq_dataset_dev" {
   description = "Development BigQuery dataset"
   #Update the below to what you want your dataset to be called
-  default = "dev"
+  default = "development"
 }
 
 variable "bq_dataset_staging" {
@@ -37,7 +37,7 @@ variable "bq_dataset_staging" {
 variable "bq_dataset_prod" {
   description = "Production BigQuery dataset"
   #Update the below to what you want your dataset to be called
-  default = "prod"
+  default = "production"
 }
 
 variable "gcs_bucket_name" {
